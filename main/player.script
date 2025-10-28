@@ -1,0 +1,30 @@
+
+
+function init(self)
+    print("Inicjalizacja gracza")
+    msg.post('.', "acquire_input_focus")
+    --move(self)
+end
+local function on_complete()
+    print("Animacja zakończona")
+end
+ 
+function on_input(self, action_id, action)
+    -- Sprawdzamy czy kliknięto lewy przycisk myszy lub dotknięcie ekranu
+    if action_id == hash("touch") and action.released then
+        
+        --local new_y = action.y           
+        --local current_pos = go.get_position()
+        local new_x = action.x
+        local current_x = go.get_position().x
+        local distance = math.abs(new_x - current_x)
+        local speed = 400 -- pikseli na sekundę, przykład
+        local duration = distance / speed
+        go.animate(".", "position.x", go.PLAYBACK_ONCE_FORWARD, new_x, go.EASING_OUTEXPO , duration, 0, on_complete)
+        --EASING_OUTEXPO   EASING_LINEAR
+        
+    end
+end
+
+
+ 

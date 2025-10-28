@@ -1,0 +1,25 @@
+images {
+  image: "/assets/images/player.png"
+}
+images {
+  image: "/assets/images/enemy.png"
+}
+images {
+  image: "/assets/images/stone.png"
+}
+images {
+  image: "/assets/images/ladder.png"
+}
+images {
+  image: "/assets/images/backround3.jpg"
+}
+images {
+  image: "/assets/images/wall2.png"
+}
+images {
+  image: "/assets/images/stone32.png"
+}
+images {
+  image: "/assets/images/stone64.png"
+}
+extrude_borders: 2

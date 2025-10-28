@@ -1,0 +1,133 @@
+script: "/main/hud.gui_script"
+fonts {
+  name: "system_font"
+  font: "/assets/font/Vip.font"
+}
+fonts {
+  name: "Antiq"
+  font: "/assets/font/Antiq.font"
+}
+nodes {
+  position {
+    x: 8.0
+    y: 786.0
+  }
+  size {
+    x: 200.0
+    y: 50.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "Lives: 3"
+  font: "system_font"
+  id: "lives_text"
+  pivot: PIVOT_W
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 469.0
+    y: 786.0
+  }
+  size {
+    x: 200.0
+    y: 50.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_TEXT
+  text: "Score: 0"
+  font: "system_font"
+  id: "score_text"
+  pivot: PIVOT_E
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 400.0
+    y: 240.0
+  }
+  scale {
+    x: 2.0
+    y: 2.0
+  }
+  size {
+    x: 400.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "GAME OVER"
+  font: "Antiq"
+  id: "game_over_text"
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  inherit_alpha: true
+  alpha: 0.0
+}
+nodes {
+  position {
+    x: 400.0
+    y: 180.0
+  }
+  size {
+    x: 300.0
+    y: 60.0
+  }
+  color {
+    x: 0.2
+    y: 0.6
+    z: 0.2
+  }
+  type: TYPE_BOX
+  id: "restart_button"
+  inherit_alpha: true
+  alpha: 0.0
+  enabled: false
+}
+nodes {
+  position {
+    x: 400.0
+    y: 180.0
+  }
+  scale {
+    x: 1.5
+    y: 1.5
+  }
+  size {
+    x: 300.0
+    y: 60.0
+  }
+  type: TYPE_TEXT
+  text: "TAP TO RESTART"
+  font: "Antiq"
+  id: "restart_text"
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  inherit_alpha: true
+  alpha: 0.0
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT
