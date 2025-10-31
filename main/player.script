@@ -3,28 +3,94 @@
 function init(self)
     print("Inicjalizacja gracza")
     msg.post('.', "acquire_input_focus")
+    self.clicked_stone = false
+    self.held_stone = false
+    self.stone_id = nil
     --move(self)
 end
-local function on_complete()
-    print("Animacja zakończona")
-end
+ 
  
 function on_input(self, action_id, action)
-    -- Sprawdzamy czy kliknięto lewy przycisk myszy lub dotknięcie ekranu
-    if action_id == hash("touch") and action.released then
+    -- Sprawdzamy czy kliknięto lewy przycisk myszy lub dotknięcie ekranu, ale czy nie 
+    if action_id == hash("touch") and action.released  then
+        go.cancel_animations(".", "position.x") --go.cancel_animations(".")
+        local click_pos = vmath.vector3(action.x, action.y, 0)
+        local stones_pos = go.get_position("/stones_left")
+        local stone_size = vmath.vector3(100, 300, 0)
         
-        --local new_y = action.y           
-        --local current_pos = go.get_position()
+        
+        if is_stone_collider_clicked(click_pos, stones_pos, stone_size)  then
+                        print("Kliknięto kamień po lewej stronie!")                     
+            self.clicked_stone = true           
+        end
+
+        stones_pos = go.get_position("/stones_right")
+        
+        if is_stone_collider_clicked(click_pos, stones_pos, stone_size)  then
+            print("Kliknięto kamień po prawej stronie!")    
+            self.clicked_stone = true
+        end
+        
+        
         local new_x = action.x
         local current_x = go.get_position().x
         local distance = math.abs(new_x - current_x)
-        local speed = 400 -- pikseli na sekundę, przykład
-        local duration = distance / speed
-        go.animate(".", "position.x", go.PLAYBACK_ONCE_FORWARD, new_x, go.EASING_OUTEXPO , duration, 0, on_complete)
+        local speed = 300 -- pikseli na sekundę, przykład
+        local duration = distance / speed                   --OUTEXPO
+        go.animate(".", "position.x", go.PLAYBACK_ONCE_FORWARD, new_x, go.EASING_LINEAR , duration, 0, function ()
+          
+            --grab stone 
+            if(self.clicked_stone and not self.held_stone) then
+                local player_pos = go.get_position() + vmath.vector3(0, 50, 0)
+                --factory.create(url, [position], [rotation], [properties], [scale])  
+                self.stone_id = factory.create("#stone_factory",player_pos,nil, nil, 2)
+                self.clicked_stone = false
+                self.held_stone = true
+                print(self.stone_id)
+                go.set_parent(self.stone_id, go.get_id())
+                go.set_position(vmath.vector3(0, 50, 0), self.stone_id)
+            elseif(self.held_stone) then           --throw stone
+                local new_stone_pos = go.get_position() -- wez pozycje gracza
+                go.set_parent(self.stone_id, nil) --unparent
+                new_stone_pos.z = 0 --change z (in front of wall)
+                go.set_position(new_stone_pos, self.stone_id) --chane position to world
+                self.held_stone = false
+                self.stone_id = nil
+            end
+
+
+         end)
         --EASING_OUTEXPO   EASING_LINEAR
         
     end
 end
-
-
  
+
+function is_stone_collider_clicked(click_pos, stone_pos, stone_size)
+    local half_width = stone_size.x / 2
+    local half_height = stone_size.y / 2
+
+    return click_pos.x >= stone_pos.x - half_width and
+           click_pos.x <= stone_pos.x + half_width and
+           click_pos.y >= stone_pos.y - half_height and
+           click_pos.y <= stone_pos.y + half_height
+end
+
+--[[
+
+-raycast - niestety cos nie bangla z Raycast w Defoldzie
+       
+        local click_x = action.screen_x or action.x
+        local click_y = action.screen_y or action.y
+
+        local start_pos = vmath.vector3(click_x, click_y, -10)
+        local end_pos = vmath.vector3(click_x, click_y, 10)
+        local groups = { hash("clickable") }
+
+        local result = physics.raycast(start_pos, end_pos, groups)
+        if result then
+            print("Kliknięto obiekt: " .. tostring(result.id))
+            print("Pozycja: " .. tostring(result.position))
+            return  -- Zakończ funkcję, jeśli kliknięto obiekt
+        end
+      ]]--
