@@ -1,87 +1,63 @@
 local STATE_IDLE = 1
 local STATE_WALKING = 2
 local STATE_WALKING_FOR_STONE = 3
- 
 local STATE_HOLDING_STONE = 4
 local STATE_THROWING_STONE = 5
 
 function init(self)
-    print("Inicjalizacja gracza")
+    print("Player initialization")
     msg.post('.', "acquire_input_focus")
     self.state = STATE_IDLE
     self.stone_id = nil
- 
     self.stone_pos_left = go.get_position("/stones_left")
     self.stone_pos_right = go.get_position("/stones_right")
     self.stone_size = vmath.vector3(100, 300, 0)
- 
 end
 
 function on_input(self, action_id, action)
     if action_id == hash("touch") and action.released then
         local tap_position = vmath.vector3(action.x, action.y, 0)
         
-        
-        if is_stone_collider_clicked(tap_position, self.stone_pos_left, self.stone_size) or
-               is_stone_collider_clicked(tap_position, self.stone_pos_right, self.stone_size)
-               and (self.state == STATE_IDLE or self.state == STATE_WALKING) then
-                print("kliknieto w kamienie")
-            self.state = STATE_WALKING_FOR_STONE
-            move_to(self, action.x)
-        end
-
-        if self.state == STATE_IDLE or self.state == STATE_WALKING then
-            self.state = STATE_WALKING
-            move_to(self, action.x)
-        end        
-       
-        
+        -- State when holding stone - throw
         if self.state == STATE_HOLDING_STONE then
-            -- kliknięcie gdy trzymamy kamień to rzut kamieniem
             self.state = STATE_THROWING_STONE
-            throw_stone(self,action.x)
+            throw_stone(self, action.x)
             return
         end
-            
         
-        
-        
-        
-          
+        -- Check if stone pile was clicked
+        local stone_clicked = is_stone_collider_clicked(tap_position, self.stone_pos_left, self.stone_size) or
+                              is_stone_collider_clicked(tap_position, self.stone_pos_right, self.stone_size)
+
+        -- Handle stone click or regular movement
+        if stone_clicked and (self.state == STATE_IDLE or self.state == STATE_WALKING) then
+            print("Clicked on stone pile")
+            self.state = STATE_WALKING_FOR_STONE
+            move_to(self, action.x)
+        elseif self.state == STATE_IDLE or self.state == STATE_WALKING then
+            self.state = STATE_WALKING
+            move_to(self, action.x)
+        end
     end
 end
 
 function update(self, dt)
-   pprint(self.state)
-    if self.state == STATE_WALKING then
-        -- tu możesz dodać mechanikę chodzenia jeśli konieczna
-    elseif self.state == STATE_THROWING_STONE then
-        -- czekasz na zakończenie animacji lub ruchu
-        -- po czym wracasz do idle
-    elseif self.state == STATE_HOLDING_STONE then
-        -- gracz stoi z kamieniem
-    elseif self.state == STATE_IDLE then
-        -- gracz stoi bez ruchu
-    end
+    -- Optional debug
+    -- pprint(self.state)
 end
 
 function move_to(self, new_x)
-    go.cancel_animations(".")
-    local current_x = go.get_position().x
-    local distance = math.abs(new_x - current_x)
     local speed = 300
-    local duration = distance / speed
+    local duration = calculate_animation_duration(new_x, speed)
+    
     go.animate(".", "position.x", go.PLAYBACK_ONCE_FORWARD, new_x, go.EASING_LINEAR, duration, 0,
         function()
-            if  not self.stone_id and self.state == STATE_WALKING_FOR_STONE then
-                print("podnoszenie kamienia")
-                grab_stone(self)         
-                        
+            if not self.stone_id and self.state == STATE_WALKING_FOR_STONE then
+                print("Picking up stone")
+                grab_stone(self)
+            else
+                self.state = STATE_IDLE
             end
-
-            
-            --self.state = STATE_IDLE 
-            
         end
     )
 end
@@ -89,41 +65,48 @@ end
 function grab_stone(self)
     local player_pos = go.get_position() + vmath.vector3(0, 50, 0)
     self.stone_id = factory.create("#stone_factory", player_pos, nil, nil, 2)
-    self.clicked_stone = false
     self.state = STATE_HOLDING_STONE
     go.set_parent(self.stone_id, go.get_id())
     go.set_position(vmath.vector3(0, 50, 0), self.stone_id)
-    print("Kamień podniesiony:", self.stone_id)
+    print("Stone picked up:", self.stone_id)
 end
 
-function throw_stone(self,new_x)
-     go.cancel_animations(".")
-    local current_x = go.get_position().x
-    local distance = math.abs(new_x - current_x)
+function throw_stone(self, new_x)
+    if not self.stone_id then 
+        self.state = STATE_IDLE
+        return
+    end
+    
     local speed = 300
-    local duration = distance / speed
-    if self.stone_id then
-       print("rzucenie kamienia:", self.stone_id)
-        go.animate(".", "position.x", go.PLAYBACK_ONCE_FORWARD, new_x, go.EASING_LINEAR, duration, 0,
+    local duration = calculate_animation_duration(new_x, speed)
+
+    print("Throwing stone:", self.stone_id)
+    go.animate(".", "position.x", go.PLAYBACK_ONCE_FORWARD, new_x, go.EASING_LINEAR, duration, 0,
         function()
-            
             local new_stone_pos = go.get_position()
             go.set_parent(self.stone_id, nil)
             new_stone_pos.z = 0
             new_stone_pos.y = 110
             go.set_position(new_stone_pos, self.stone_id)
-            self.stone_id = nil                       
-            end)
-    end
-       
-  self.state = STATE_IDLE
+            self.stone_id = nil
+            self.state = STATE_IDLE
+        end
+    )
 end
 
 function is_stone_collider_clicked(click_pos, stone_pos, stone_size)
-    local half_width = stone_size.x / 2
-    local half_height = stone_size.y / 2
+    local half_width = stone_size.x * 0.5
+    local half_height = stone_size.y * 0.5
     return click_pos.x >= stone_pos.x - half_width and
            click_pos.x <= stone_pos.x + half_width and
            click_pos.y >= stone_pos.y - half_height and
            click_pos.y <= stone_pos.y + half_height
+end
+
+function calculate_animation_duration(new_x, speed)
+    go.cancel_animations(".")
+    local pos = go.get_position()
+    local distance = math.abs(new_x - pos.x)
+    local duration = distance / speed
+    return duration
 end
