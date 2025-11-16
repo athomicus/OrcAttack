@@ -1,6 +1,0 @@
-default_animation: "enemy"
-material: "/builtins/materials/sprite.material"
-textures {
-  sampler: "texture_sampler"
-  texture: "/assets/atlas.atlas"
-}

@@ -1,0 +1,85 @@
+animations {
+  id: "Run"
+  images {
+    image: "/assets/images/Capy/run/c_run_Final Color Output0001.png"
+  }
+  images {
+    image: "/assets/images/Capy/run/c_run_Final Color Output0002.png"
+  }
+  images {
+    image: "/assets/images/Capy/run/c_run_Final Color Output0003.png"
+  }
+  images {
+    image: "/assets/images/Capy/run/c_run_Final Color Output0004.png"
+  }
+  images {
+    image: "/assets/images/Capy/run/c_run_Final Color Output0005.png"
+  }
+  images {
+    image: "/assets/images/Capy/run/c_run_Final Color Output0006.png"
+  }
+  images {
+    image: "/assets/images/Capy/run/c_run_Final Color Output0007.png"
+  }
+  images {
+    image: "/assets/images/Capy/run/c_run_Final Color Output0008.png"
+  }
+  images {
+    image: "/assets/images/Capy/run/c_run_Final Color Output0009.png"
+  }
+  images {
+    image: "/assets/images/Capy/run/c_run_Final Color Output0010.png"
+  }
+  images {
+    image: "/assets/images/Capy/run/c_run_Final Color Output0011.png"
+  }
+  images {
+    image: "/assets/images/Capy/run/c_run_Final Color Output0012.png"
+  }
+  images {
+    image: "/assets/images/Capy/run/c_run_Final Color Output0013.png"
+  }
+  images {
+    image: "/assets/images/Capy/run/c_run_Final Color Output0014.png"
+  }
+  images {
+    image: "/assets/images/Capy/run/c_run_Final Color Output0015.png"
+  }
+  images {
+    image: "/assets/images/Capy/run/c_run_Final Color Output0016.png"
+  }
+  images {
+    image: "/assets/images/Capy/run/c_run_Final Color Output0017.png"
+  }
+  images {
+    image: "/assets/images/Capy/run/c_run_Final Color Output0018.png"
+  }
+  images {
+    image: "/assets/images/Capy/run/c_run_Final Color Output0019.png"
+  }
+  images {
+    image: "/assets/images/Capy/run/c_run_Final Color Output0020.png"
+  }
+  images {
+    image: "/assets/images/Capy/run/c_run_Final Color Output0021.png"
+  }
+  images {
+    image: "/assets/images/Capy/run/c_run_Final Color Output0022.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+}
+animations {
+  id: "rock"
+  images {
+    image: "/assets/images/Capy/rock.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+}
+animations {
+  id: "throw"
+  images {
+    image: "/assets/images/Capy/throw.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+}
+extrude_borders: 2

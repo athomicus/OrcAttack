@@ -1,0 +1,28 @@
+function init(self)
+	self.falling = false
+	self.fall_speed = 300
+end
+
+ 
+
+function update(self, dt)
+	if self.falling then
+		local stone_pos = go.get_position()
+		stone_pos.y = stone_pos.y - self.fall_speed * dt
+		go.set_position(stone_pos)
+		
+		if stone_pos.y <=30 then go.delete(go.get_id(), true) 	end
+	
+	end
+
+	 	
+		 
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("stone_start_falling") then
+			
+		self.falling = true
+		
+	end
+end

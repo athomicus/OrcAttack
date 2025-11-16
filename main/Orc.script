@@ -1,0 +1,4 @@
+function update(self, dt)
+	--local velocity = go.get("#", "velocity") -- Twój sposób na pobranie prędkości lub innej zmiennej
+	sprite.set_hflip("#sprite",true) -- Odbicie poziome w zależności od kierunku ruchu
+end

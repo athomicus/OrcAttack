@@ -1,0 +1,265 @@
+animations {
+  id: "walk"
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0001.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0002.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0003.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0004.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0005.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0006.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0007.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0008.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0009.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0010.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0011.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0012.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0013.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0014.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0015.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0016.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0017.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0018.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0019.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0020.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0021.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0022.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0023.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0024.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0025.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0026.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0027.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0028.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0029.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0030.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0031.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0032.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0033.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0034.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0035.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0036.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0037.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0038.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0039.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0040.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0041.png"
+  }
+  images {
+    image: "/assets/images/enemy/walk/c.Final Color Output.0042.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+}
+animations {
+  id: "climb"
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0001.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0002.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0003.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0004.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0005.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0006.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0007.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0008.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0009.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0010.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0011.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0012.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0013.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0014.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0015.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0016.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0017.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0018.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0019.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0020.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0021.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0022.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0023.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0024.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0025.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0026.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0027.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0028.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0029.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0030.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0031.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0032.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0033.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0034.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0035.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0036.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0037.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0038.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0039.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0040.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0041.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0042.png"
+  }
+  images {
+    image: "/assets/images/enemy/climb/climbg.Final Color Output.0043.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 35
+}
+extrude_borders: 2
