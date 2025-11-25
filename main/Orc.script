@@ -8,22 +8,41 @@ local STATE_DIE = 5
 
 
 function init(self)
-	self.state = STATE_WALK_TO_POSITION
 	
-	self.POINTS = {
-		vmath.vector3(60, 75, 0),  -- Point 1
-		vmath.vector3(145, 75, 0),     -- Point 2
-		vmath.vector3(240, 75, 0),    -- Point 3
-		vmath.vector3(320, 75, 0),    -- Point 4
-		vmath.vector3(415, 75, 0)    -- Point 5
-	}	
+	
+	self.state = STATE_WALK_TO_POSITION
+	local index, point = module.get_free_point()
+	module.set_taken(index, true)
+	 if index == nil then
+		pprint("No free point [DELETE] Orc")
+	    go.delete() -- No free point, delete the Orc
+		return
+	end
+	
+	
+	pprint("Orc initialized at point index: ".. tostring(index))
+	local start_pos = go.get_position()
+	local distance = math.abs(point.x - start_pos.x)
+	local speed = 50 -- pixels per second
+	local duration = distance / speed
+	
+	if point.x > start_pos.x then
+		sprite.set_hflip("#sprite",true) -- Odbicie poziome w zależności od kierunku ruchu
+	end
+	--go.animate(url, property, playback, to, easing, duration, delay, complete_function)
+	local delay =math.random()*0.3
+	go.animate('.', 'position.x', go.PLAYBACK_ONCE_FORWARD, point.x, go.EASING_LINEAR, duration,delay,function ()
+		
+		pprint("Reached:".. tostring(index))
+	end)	
+	 	
 end
 
 
 
 function update(self, dt)
 	--local velocity = go.get("#", "velocity") -- Twój sposób na pobranie prędkości lub innej zmiennej
-	sprite.set_hflip("#sprite",true) -- Odbicie poziome w zależności od kierunku ruchu
+	--sprite.set_hflip("#sprite",true) -- Odbicie poziome w zależności od kierunku ruchu
 end
 
 --1 Spawn

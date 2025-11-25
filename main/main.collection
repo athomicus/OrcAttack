@@ -3,7 +3,7 @@ instances {
   id: "Orc"
   prototype: "/game_objects/Orc.go"
   position {
-    x: 321.0
+    x: 457.0
     y: 75.0
   }
 }
@@ -11,7 +11,7 @@ instances {
   id: "Orc1"
   prototype: "/game_objects/Orc.go"
   position {
-    x: 58.0
+    x: -73.0
     y: 75.0
   }
 }
@@ -19,7 +19,7 @@ instances {
   id: "Orc2"
   prototype: "/game_objects/Orc.go"
   position {
-    x: 145.0
+    x: 682.0
     y: 75.0
   }
 }
@@ -27,7 +27,7 @@ instances {
   id: "Orc3"
   prototype: "/game_objects/Orc.go"
   position {
-    x: 239.0
+    x: -243.0
     y: 75.0
   }
 }
@@ -35,7 +35,31 @@ instances {
   id: "Orc4"
   prototype: "/game_objects/Orc.go"
   position {
-    x: 414.0
+    x: 498.0
+    y: 75.0
+  }
+}
+instances {
+  id: "Orc5"
+  prototype: "/game_objects/Orc.go"
+  position {
+    x: -32.0
+    y: 75.0
+  }
+}
+instances {
+  id: "Orc6"
+  prototype: "/game_objects/Orc.go"
+  position {
+    x: 854.0
+    y: 75.0
+  }
+}
+instances {
+  id: "Orc7"
+  prototype: "/game_objects/Orc.go"
+  position {
+    x: -202.0
     y: 75.0
   }
 }
