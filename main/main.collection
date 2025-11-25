@@ -3,7 +3,39 @@ instances {
   id: "Orc"
   prototype: "/game_objects/Orc.go"
   position {
-    x: 312.0
+    x: 321.0
+    y: 75.0
+  }
+}
+instances {
+  id: "Orc1"
+  prototype: "/game_objects/Orc.go"
+  position {
+    x: 58.0
+    y: 75.0
+  }
+}
+instances {
+  id: "Orc2"
+  prototype: "/game_objects/Orc.go"
+  position {
+    x: 145.0
+    y: 75.0
+  }
+}
+instances {
+  id: "Orc3"
+  prototype: "/game_objects/Orc.go"
+  position {
+    x: 239.0
+    y: 75.0
+  }
+}
+instances {
+  id: "Orc4"
+  prototype: "/game_objects/Orc.go"
+  position {
+    x: 414.0
     y: 75.0
   }
 }
@@ -400,4 +432,8 @@ embedded_instances {
     y: 672.0
     z: -0.6
   }
+}
+embedded_instances {
+  id: "OrcSpawner"
+  data: ""
 }
