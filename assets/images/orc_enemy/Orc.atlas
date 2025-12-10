@@ -282,4 +282,26 @@ animations {
   }
   playback: PLAYBACK_LOOP_FORWARD
 }
+animations {
+  id: "walkToClimb"
+  images {
+    image: "/assets/images/orc_enemy/walkToClimb/WCFinal Color Output0049.png"
+  }
+  images {
+    image: "/assets/images/orc_enemy/walkToClimb/WCFinal Color Output0050.png"
+  }
+  images {
+    image: "/assets/images/orc_enemy/walkToClimb/WCFinal Color Output0051.png"
+  }
+  images {
+    image: "/assets/images/orc_enemy/walkToClimb/WCFinal Color Output0052.png"
+  }
+  images {
+    image: "/assets/images/orc_enemy/walkToClimb/WCFinal Color Output0053.png"
+  }
+  images {
+    image: "/assets/images/orc_enemy/walkToClimb/WCFinal Color Output0054.png"
+  }
+  fps: 25
+}
 extrude_borders: 2

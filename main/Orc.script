@@ -11,6 +11,7 @@ function init(self)
 	
 	
 	self.state = STATE_WALK_TO_POSITION
+	self.scale = go.get("#sprite", "scale")
 	local index, point = module.get_free_point()
 	module.set_taken(index, true)
 	 if index == nil then
@@ -18,6 +19,7 @@ function init(self)
 	    go.delete() -- No free point, delete the Orc
 		return
 	end
+	go.set("#sprite_fade", "tint.w", 0.0) -- Ustaw przezroczystość drugiego sprite'a na 0
 	
 	
 	pprint("Orc initialized at point index: ".. tostring(index))
@@ -34,13 +36,43 @@ function init(self)
 	go.animate('.', 'position.x', go.PLAYBACK_ONCE_FORWARD, point.x, go.EASING_LINEAR, duration,delay,function ()
 		
 		pprint("Reached:".. tostring(index))
+		switch_to_climbing(self)
+		
 	end)	
 	 	
 end
 
+function switch_to_climbing(self)
+	
+	self.scale = self.scale  
+ 	  -- Crossfade: current OUT + target IN
+    go.animate("#sprite", "tint.w", go.PLAYBACK_ONCE_FORWARD, 0.0, go.EASING_INOUTQUAD, 0.2, 0.0)
+    go.animate("#sprite_fade", "tint.w", go.PLAYBACK_ONCE_FORWARD, 1.0, go.EASING_INOUTQUAD, 0.2, 0.0)
+	sprite.play_flipbook("#sprite_fade", "walkToClimb",
+	function(self,message_id,message,sender)
+		--self.scale = vmath.vector3(1)
+		
+		sprite.play_flipbook("#sprite","climbing")
+		go.set("#sprite", "tint.w", 1.0)
+		go.set("#sprite","scale", vmath.vector3(0.55))
+		go.set("#sprite_fade", "tint.w", 0.0)
+		self.state = STATE_CLIMBING
+	end)
 
+end
 
 function update(self, dt)
+	
+	if self.state == STATE_CLIMBING then
+		local pos = go.get_position()
+		pos.y = pos.y + 40 * dt
+		go.set_position(pos)
+		
+		if pos.y >= 658 then
+			self.state = STATE_ATTACK_WALL
+			sprite.play_flipbook("#sprite", "attackWall")
+		end
+	end
 	--local velocity = go.get("#", "velocity") -- Twój sposób na pobranie prędkości lub innej zmiennej
 	--sprite.set_hflip("#sprite",true) -- Odbicie poziome w zależności od kierunku ruchu
 end

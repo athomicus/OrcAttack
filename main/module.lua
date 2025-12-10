@@ -4,8 +4,8 @@ M.orc_points = {
 	{ pos = vmath.vector3(60, 75, 0), taken = false }, -- Point 1
 	{ pos = vmath.vector3(145, 75, 0), taken = false },     -- Point 2
 	{ pos = vmath.vector3(240, 75, 0), taken = false },    -- Point 3
-	{ pos = vmath.vector3(320, 75, 0), taken = false },    -- Point 4
-	{ pos = vmath.vector3(415, 75, 0), taken = false }    -- Point 5
+	{ pos = vmath.vector3(330, 75, 0), taken = false },    -- Point 4
+	{ pos = vmath.vector3(440, 75, 0), taken = false }    -- Point 5
 }
 
 -- position = M.orc_point[1].pos
