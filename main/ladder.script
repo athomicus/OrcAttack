@@ -1,0 +1,10 @@
+function init(self)
+	 go.set("#ladder_sprite", "tint.w", 0.0)
+	--self.enabled = false
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("enable_ladder") then
+		go.set("#ladder_sprite", "tint.w", 1.0)
+	end
+end

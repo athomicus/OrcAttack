@@ -5,24 +5,26 @@ local STATE_CLIMBING = 2
 local STATE_ATTACK_WALL = 3
 local STATE_FALL = 4      
 local STATE_DIE = 5  
-
-
+ 
 function init(self)
 	
-	
+	self.current_trigger_ladder_id_for_orc = nil
 	self.state = STATE_WALK_TO_POSITION
 	self.scale = go.get("#sprite", "scale")
-	local index, point = module.get_free_point()
+
+--####################################### Find free place to that Orc can walk
+	local index, point = module.get_free_point() --{ pos = vmath.vector3(60, 75, 0), taken = false }, -- Point 1
 	module.set_taken(index, true)
 	 if index == nil then
 		pprint("No free point [DELETE] Orc")
 	    go.delete() -- No free point, delete the Orc
 		return
 	end
-	go.set("#sprite_fade", "tint.w", 0.0) -- Ustaw przezroczystość drugiego sprite'a na 0
-	
-	
+	go.set("#sprite_fade", "tint.w", 0.0) -- Ustaw przezroczystość drugiego sprite'a na 0 to do crossfade animacji przy climb	
 	pprint("Orc initialized at point index: ".. tostring(index))
+
+
+--#######################################  Orc Animate(walk) to position
 	local start_pos = go.get_position()
 	local distance = math.abs(point.x - start_pos.x)
 	local speed = 50 -- pixels per second
@@ -32,18 +34,18 @@ function init(self)
 		sprite.set_hflip("#sprite",true) -- Odbicie poziome w zależności od kierunku ruchu
 	end
 	--go.animate(url, property, playback, to, easing, duration, delay, complete_function)
-	local delay =math.random()*0.3
-	go.animate('.', 'position.x', go.PLAYBACK_ONCE_FORWARD, point.x, go.EASING_LINEAR, duration,delay,function ()
-		
-		pprint("Reached:".. tostring(index))
+	local delay = math.random()*0.3
+	go.animate('.', 'position.x', go.PLAYBACK_ONCE_FORWARD, point.x, go.EASING_LINEAR, duration,delay,function ()		
+		--pprint("Reached:".. tostring(index))
+
+--####################################### Orc Climb animation 		
 		switch_to_climbing(self)
 		
 	end)	
 	 	
 end
 
-function switch_to_climbing(self)
-	
+function switch_to_climbing(self)	
 	self.scale = self.scale  
  	  -- Crossfade: current OUT + target IN
     go.animate("#sprite", "tint.w", go.PLAYBACK_ONCE_FORWARD, 0.0, go.EASING_INOUTQUAD, 0.2, 0.0)
@@ -68,15 +70,39 @@ function update(self, dt)
 		pos.y = pos.y + 40 * dt
 		go.set_position(pos)
 		
+		if pos.y >60 and pos.y < 80 then
+			--ledder
+		end
+
 		if pos.y >= 658 then
 			self.state = STATE_ATTACK_WALL
-			sprite.play_flipbook("#sprite", "attackWall")
+			--sprite.play_flipbook("#sprite", "attackWall")
 		end
 	end
 	--local velocity = go.get("#", "velocity") -- Twój sposób na pobranie prędkości lub innej zmiennej
 	--sprite.set_hflip("#sprite",true) -- Odbicie poziome w zależności od kierunku ruchu
 end
 
+function on_message(self, message_id, message, sender)
+	if self.state == STATE_CLIMBING then
+		--pprint("Ladder trigger message received")
+		if message_id == hash("trigger_response") then			
+		--	print("Ladder trigger collision detected")
+			print("TRIGGER:", message.enter, "group:", message.other_group)
+			if message.enter and message.other_group==hash("ladder") then
+   				local current_ladder_id = message.other_id
+				msg.post(current_ladder_id,hash("enable_ladder"))
+        		print("enable ladder"..current_ladder_id)
+    		
+			end		
+			
+		end
+
+	end
+end
+
+
 --1 Spawn
 --2 idz do punktu
---3 drabina + wspinaj sie
+--3 crossfade animacji
+--4 wspinaj sie i wyciagaj drabine

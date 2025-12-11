@@ -63,6 +63,46 @@ instances {
     y: 75.0
   }
 }
+instances {
+  id: "ladder"
+  prototype: "/game_objects/ladder.go"
+  position {
+    x: 60.0
+    y: 88.0
+  }
+}
+instances {
+  id: "ladder1"
+  prototype: "/game_objects/ladder.go"
+  position {
+    x: 145.0
+    y: 88.0
+  }
+}
+instances {
+  id: "ladder2"
+  prototype: "/game_objects/ladder.go"
+  position {
+    x: 241.0
+    y: 88.0
+  }
+}
+instances {
+  id: "ladder3"
+  prototype: "/game_objects/ladder.go"
+  position {
+    x: 330.0
+    y: 88.0
+  }
+}
+instances {
+  id: "ladder4"
+  prototype: "/game_objects/ladder.go"
+  position {
+    x: 441.0
+    y: 88.0
+  }
+}
 scale_along_z: 0
 embedded_instances {
   id: "player"
@@ -309,123 +349,12 @@ embedded_instances {
 }
 embedded_instances {
   id: "ladders"
-  data: "embedded_components {\n"
-  "  id: \"sprite\"\n"
-  "  type: \"sprite\"\n"
-  "  data: \"default_animation: \\\"ladder\\\"\\n"
-  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
-  "textures {\\n"
-  "  sampler: \\\"texture_sampler\\\"\\n"
-  "  texture: \\\"/assets/images/orc_enemy/Orc.atlas\\\"\\n"
-  "}\\n"
-  "\"\n"
-  "  position {\n"
-  "    x: 60.0\n"
-  "    y: 88.0\n"
-  "  }\n"
-  "  scale {\n"
-  "    x: 0.4\n"
-  "    y: 0.4\n"
-  "    z: 0.3\n"
-  "  }\n"
-  "}\n"
-  "embedded_components {\n"
-  "  id: \"sprite1\"\n"
-  "  type: \"sprite\"\n"
-  "  data: \"default_animation: \\\"ladder\\\"\\n"
-  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
-  "size {\\n"
-  "  x: 250.0\\n"
-  "  y: 450.0\\n"
-  "}\\n"
-  "textures {\\n"
-  "  sampler: \\\"texture_sampler\\\"\\n"
-  "  texture: \\\"/assets/images/orc_enemy/Orc.atlas\\\"\\n"
-  "}\\n"
-  "\"\n"
-  "  position {\n"
-  "    x: 145.0\n"
-  "    y: 88.0\n"
-  "  }\n"
-  "  scale {\n"
-  "    x: 0.4\n"
-  "    y: 0.4\n"
-  "    z: 0.3\n"
-  "  }\n"
-  "}\n"
-  "embedded_components {\n"
-  "  id: \"sprite2\"\n"
-  "  type: \"sprite\"\n"
-  "  data: \"default_animation: \\\"ladder\\\"\\n"
-  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
-  "size {\\n"
-  "  x: 250.0\\n"
-  "  y: 450.0\\n"
-  "}\\n"
-  "textures {\\n"
-  "  sampler: \\\"texture_sampler\\\"\\n"
-  "  texture: \\\"/assets/images/orc_enemy/Orc.atlas\\\"\\n"
-  "}\\n"
-  "\"\n"
-  "  position {\n"
-  "    x: 240.0\n"
-  "    y: 88.0\n"
-  "  }\n"
-  "  scale {\n"
-  "    x: 0.4\n"
-  "    y: 0.4\n"
-  "    z: 0.3\n"
-  "  }\n"
-  "}\n"
-  "embedded_components {\n"
-  "  id: \"sprite3\"\n"
-  "  type: \"sprite\"\n"
-  "  data: \"default_animation: \\\"ladder\\\"\\n"
-  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
-  "size {\\n"
-  "  x: 250.0\\n"
-  "  y: 450.0\\n"
-  "}\\n"
-  "textures {\\n"
-  "  sampler: \\\"texture_sampler\\\"\\n"
-  "  texture: \\\"/assets/images/orc_enemy/Orc.atlas\\\"\\n"
-  "}\\n"
-  "\"\n"
-  "  position {\n"
-  "    x: 330.0\n"
-  "    y: 88.0\n"
-  "  }\n"
-  "  scale {\n"
-  "    x: 0.4\n"
-  "    y: 0.4\n"
-  "    z: 0.3\n"
-  "  }\n"
-  "}\n"
-  "embedded_components {\n"
-  "  id: \"sprite4\"\n"
-  "  type: \"sprite\"\n"
-  "  data: \"default_animation: \\\"ladder\\\"\\n"
-  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
-  "size {\\n"
-  "  x: 250.0\\n"
-  "  y: 450.0\\n"
-  "}\\n"
-  "textures {\\n"
-  "  sampler: \\\"texture_sampler\\\"\\n"
-  "  texture: \\\"/assets/images/orc_enemy/Orc.atlas\\\"\\n"
-  "}\\n"
-  "\"\n"
-  "  position {\n"
-  "    x: 440.0\n"
-  "    y: 88.0\n"
-  "  }\n"
-  "  scale {\n"
-  "    x: 0.4\n"
-  "    y: 0.4\n"
-  "    z: 0.3\n"
-  "  }\n"
-  "}\n"
-  ""
+  children: "ladder"
+  children: "ladder1"
+  children: "ladder2"
+  children: "ladder3"
+  children: "ladder4"
+  data: ""
 }
 embedded_instances {
   id: "stones_right"
