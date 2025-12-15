@@ -69,6 +69,7 @@ instances {
   position {
     x: 60.0
     y: 88.0
+    z: -0.1
   }
 }
 instances {
@@ -77,6 +78,7 @@ instances {
   position {
     x: 145.0
     y: 88.0
+    z: -0.1
   }
 }
 instances {
@@ -85,6 +87,7 @@ instances {
   position {
     x: 241.0
     y: 88.0
+    z: -0.1
   }
 }
 instances {
@@ -93,6 +96,7 @@ instances {
   position {
     x: 330.0
     y: 88.0
+    z: -0.1
   }
 }
 instances {
@@ -101,6 +105,142 @@ instances {
   position {
     x: 441.0
     y: 88.0
+    z: -0.1
+  }
+}
+instances {
+  id: "ladder5"
+  prototype: "/game_objects/ladder.go"
+  position {
+    x: 60.0
+    y: 256.0
+    z: -0.1
+  }
+}
+instances {
+  id: "ladder6"
+  prototype: "/game_objects/ladder.go"
+  position {
+    x: 145.0
+    y: 256.0
+    z: -0.1
+  }
+}
+instances {
+  id: "ladder7"
+  prototype: "/game_objects/ladder.go"
+  position {
+    x: 241.0
+    y: 256.0
+    z: -0.1
+  }
+}
+instances {
+  id: "ladder8"
+  prototype: "/game_objects/ladder.go"
+  position {
+    x: 330.0
+    y: 256.0
+    z: -0.1
+  }
+}
+instances {
+  id: "ladder9"
+  prototype: "/game_objects/ladder.go"
+  position {
+    x: 441.0
+    y: 256.0
+    z: -0.1
+  }
+}
+instances {
+  id: "ladder10"
+  prototype: "/game_objects/ladder.go"
+  position {
+    x: 441.0
+    y: 596.0
+    z: -0.1
+  }
+}
+instances {
+  id: "ladder11"
+  prototype: "/game_objects/ladder.go"
+  position {
+    x: 145.0
+    y: 596.0
+    z: -0.1
+  }
+}
+instances {
+  id: "ladder12"
+  prototype: "/game_objects/ladder.go"
+  position {
+    x: 60.0
+    y: 425.0
+    z: -0.1
+  }
+}
+instances {
+  id: "ladder13"
+  prototype: "/game_objects/ladder.go"
+  position {
+    x: 441.0
+    y: 425.0
+    z: -0.1
+  }
+}
+instances {
+  id: "ladder14"
+  prototype: "/game_objects/ladder.go"
+  position {
+    x: 241.0
+    y: 596.0
+    z: -0.1
+  }
+}
+instances {
+  id: "ladder15"
+  prototype: "/game_objects/ladder.go"
+  position {
+    x: 241.0
+    y: 425.0
+    z: -0.1
+  }
+}
+instances {
+  id: "ladder16"
+  prototype: "/game_objects/ladder.go"
+  position {
+    x: 60.0
+    y: 596.0
+    z: -0.1
+  }
+}
+instances {
+  id: "ladder17"
+  prototype: "/game_objects/ladder.go"
+  position {
+    x: 145.0
+    y: 425.0
+    z: -0.1
+  }
+}
+instances {
+  id: "ladder18"
+  prototype: "/game_objects/ladder.go"
+  position {
+    x: 330.0
+    y: 596.0
+    z: -0.1
+  }
+}
+instances {
+  id: "ladder19"
+  prototype: "/game_objects/ladder.go"
+  position {
+    x: 330.0
+    y: 425.0
+    z: -0.1
   }
 }
 scale_along_z: 0
@@ -351,9 +491,24 @@ embedded_instances {
   id: "ladders"
   children: "ladder"
   children: "ladder1"
+  children: "ladder10"
+  children: "ladder11"
+  children: "ladder12"
+  children: "ladder13"
+  children: "ladder14"
+  children: "ladder15"
+  children: "ladder16"
+  children: "ladder17"
+  children: "ladder18"
+  children: "ladder19"
   children: "ladder2"
   children: "ladder3"
   children: "ladder4"
+  children: "ladder5"
+  children: "ladder6"
+  children: "ladder7"
+  children: "ladder8"
+  children: "ladder9"
   data: ""
 }
 embedded_instances {

@@ -1,10 +1,41 @@
 function init(self)
-	 go.set("#ladder_sprite", "tint.w", 0.0)
+	--go.set("#collisionobject", "mass", 0)
+	go.set("#ladder_sprite", "tint.w", 0.0)
 	--self.enabled = false
 end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("enable_ladder") then
-		go.set("#ladder_sprite", "tint.w", 1.0)
+	
+		--local pos = go.get("#ladder_sprite", "position")  -- Pobierz z SPRITE !!! nie mozna  sprite nie ma pozycji tylko GO
+
+		 local pos = go.get_position()  -- POZYCJA GO = OK!
+
+		print("Drabina pozycja: ", pos)  -- 
+        print("start_y: ", pos.y - 100)
+        print("end_y: ", pos.y)
+		local start_y = pos.y -100
+		local end_y = pos.y 
+		
+				
+		
+		
+		
+        -- RUCH CAŁEGO GO (".") = OK!
+        go.set_position(vmath.vector3(pos.x, start_y, pos.z))
+        go.animate(".", "position.y", 
+                   go.PLAYBACK_ONCE_FORWARD, end_y, 
+                   go.EASING_OUTQUAD, 0.4, 0.0, 
+        function()
+      	print("PRZED SNAP: ", go.get_position().y)
+    	go.set_position(vmath.vector3(pos.x, end_y, pos.z))  -- SNAP!
+    	print("PO SNAP:   ", go.get_position().y)  -- MUSI być DOKŁADNIE end_y
+		
+		
+        end)
+
+        -- Fade SPRITE (TINT = OK!)
+		go.animate("#ladder_sprite", "tint.w", go.PLAYBACK_ONCE_FORWARD, 1, go.EASING_LINEAR, 0.5)		
+		--go.set("#ladder_sprite", "tint.w", 1.0)
 	end
 end

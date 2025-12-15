@@ -66,6 +66,8 @@ end
 function update(self, dt)
 	
 	if self.state == STATE_CLIMBING then
+		print(self.current_trigger_ladder_id_for_orc)
+		msg.post(self.current_trigger_ladder_id_for_orc, "enable_ladder") -- wyslij wiadomosc do drabiny by sioe wlaczyla
 		local pos = go.get_position()
 		pos.y = pos.y + 40 * dt
 		go.set_position(pos)
@@ -84,24 +86,42 @@ function update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-	if self.state == STATE_CLIMBING then
+
 		--pprint("Ladder trigger message received")
 		if message_id == hash("trigger_response") then			
 		--	print("Ladder trigger collision detected")
-			print("TRIGGER:", message.enter, "group:", message.other_group)
+			--print("TRIGGER:", message.enter, "group:", message.other_group)
+
+
+			--wiadomosc z triggera wysylana jest automatczycnie true-wejscie , false wyjscie	
+			-- jesli meeasge.enter == true to wejscie do triggera
 			if message.enter and message.other_group==hash("ladder") then
-   				local current_ladder_id = message.other_id
-				msg.post(current_ladder_id,hash("enable_ladder"))
-        		print("enable ladder"..current_ladder_id)
-    		
+   				
+				--wejscie do triggera
+				local current_ladder_id = message.other_id
+				keep_last_trigger_touchedby_orc(self, current_ladder_id)
+			else
+				
+				keep_last_trigger_touchedby_orc(self, nil)	
 			end		
 			
 		end
 
 	end
+ 
+
+function keep_last_trigger_touchedby_orc(self, ladder_id)
+	if ladder_id  then
+		self.current_trigger_ladder_id_for_orc = ladder_id
+	--print("Ladder"..ladder_id.." touched by Orc")
+	return
+	end
+	
+
+--trzeba sprawdzic czy Orc opuscil Triger drabiny jak tak to czekac na nowy triger 
+--zapisac go doa jakiejs zmiennej lub tablicy i ostatni na ktorym zostal  wziasc jako current
+
 end
-
-
 --1 Spawn
 --2 idz do punktu
 --3 crossfade animacji
