@@ -65,3 +65,31 @@ embedded_components {
     z: 0.6
   }
 }
+embedded_components {
+  id: "sprite_attack"
+  type: "sprite"
+  data: "default_animation: \"attack\"\n"
+  "material: \"/builtins/materials/sprite.material\"\n"
+  "size {\n"
+  "  x: 400.0\n"
+  "  y: 300.0\n"
+  "}\n"
+  "textures {\n"
+  "  sampler: \"texture_sampler\"\n"
+  "  texture: \"/assets/images/orc_enemy/Orc.atlas\"\n"
+  "}\n"
+  ""
+  position {
+    x: -42.0
+    y: 34.0
+  }
+  rotation {
+    z: 0.054643765
+    w: 0.9985059
+  }
+  scale {
+    x: 0.73
+    y: 0.73
+    z: 0.73
+  }
+}

@@ -21,6 +21,7 @@ function init(self)
 		return
 	end
 	go.set("#sprite_fade", "tint.w", 0.0) -- Ustaw przezroczystość drugiego sprite'a na 0 to do crossfade animacji przy climb	
+	go.set("#sprite_attack", "tint.w", 0.0) -- Ustaw przezroczystość trzeciego sprite'a na 0 to do crossfade animacji przy climb	
 	pprint("Orc initialized at point index: ".. tostring(index))
 
 
@@ -66,7 +67,7 @@ end
 function update(self, dt)
 	
 	if self.state == STATE_CLIMBING then
-		print(self.current_trigger_ladder_id_for_orc)
+		--print(self.current_trigger_ladder_id_for_orc)
 		msg.post(self.current_trigger_ladder_id_for_orc, "enable_ladder") -- wyslij wiadomosc do drabiny by sioe wlaczyla
 		local pos = go.get_position()
 		pos.y = pos.y + 40 * dt
@@ -76,10 +77,23 @@ function update(self, dt)
 			--ledder
 		end
 
-		if pos.y >= 658 then
+		if pos.y >= 640 then
 			self.state = STATE_ATTACK_WALL
+			 -- Crossfade: current OUT + target IN
+    		go.animate("#sprite", "tint.w", go.PLAYBACK_ONCE_FORWARD, 0.0, go.EASING_INOUTQUAD, 0.2, 0.0)
+			go.animate("#sprite_fade", "tint.w", go.PLAYBACK_ONCE_FORWARD, 0.0, go.EASING_INOUTQUAD, 0.2, 0.0)
+    		go.animate("#sprite_attack", "tint.w", go.PLAYBACK_ONCE_FORWARD, 1.0, go.EASING_INOUTQUAD, 0.25, 0.0)
+			--go.set("#sprite", "tint.w", 0.0)
+			--go.set("#sprite_fade", "tint.w", 0.0)
+			--go.set("#sprite_attack", "tint.w", 1.0)
+		--	sprite.play_flipbook("#sprite_attack", "attack")
 			--sprite.play_flipbook("#sprite", "attackWall")
 		end
+	end
+	
+	if self.state == STATE_ATTACK_WALL then
+		
+		
 	end
 	--local velocity = go.get("#", "velocity") -- Twój sposób na pobranie prędkości lub innej zmiennej
 	--sprite.set_hflip("#sprite",true) -- Odbicie poziome w zależności od kierunku ruchu
