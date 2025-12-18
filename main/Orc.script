@@ -5,13 +5,16 @@ local STATE_CLIMBING = 2
 local STATE_ATTACK_WALL = 3
 local STATE_FALL = 4      
 local STATE_DIE = 5  
+local CLIMB_POS_Y = 620  
  
 function init(self)
 	
 	self.current_trigger_ladder_id_for_orc = nil
 	self.state = STATE_WALK_TO_POSITION
 	self.scale = go.get("#sprite", "scale")
-
+	self.speed = 110 --pixels per second speed of orc walking
+	self.climb_speed = 80
+	self.playback_rate = 1.5 -- walking animation speed multiplier
 --####################################### Find free place to that Orc can walk
 	local index, point = module.get_free_point() --{ pos = vmath.vector3(60, 75, 0), taken = false }, -- Point 1
 	module.set_taken(index, true)
@@ -26,10 +29,11 @@ function init(self)
 
 
 --#######################################  Orc Animate(walk) to position
+	sprite.play_flipbook("#sprite", hash("walking"), nil, { playback_rate = self.playback_rate }) -- speed up walking animation 
 	local start_pos = go.get_position()
 	local distance = math.abs(point.x - start_pos.x)
-	local speed = 50 -- pixels per second
-	local duration = distance / speed
+	
+	local duration = distance / self.speed
 	
 	if point.x > start_pos.x then
 		sprite.set_hflip("#sprite",true) -- Odbicie poziome w zależności od kierunku ruchu
@@ -70,14 +74,14 @@ function update(self, dt)
 		--print(self.current_trigger_ladder_id_for_orc)
 		msg.post(self.current_trigger_ladder_id_for_orc, "enable_ladder") -- wyslij wiadomosc do drabiny by sioe wlaczyla
 		local pos = go.get_position()
-		pos.y = pos.y + 40 * dt
+		pos.y = pos.y + self.climb_speed * dt
 		go.set_position(pos)
 		
 		if pos.y >60 and pos.y < 80 then
 			--ledder
 		end
 
-		if pos.y >= 640 then
+		if pos.y >= CLIMB_POS_Y then
 			self.state = STATE_ATTACK_WALL
 			 -- Crossfade: current OUT + target IN
     		go.animate("#sprite", "tint.w", go.PLAYBACK_ONCE_FORWARD, 0.0, go.EASING_INOUTQUAD, 0.2, 0.0)
