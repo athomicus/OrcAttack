@@ -1,17 +1,22 @@
 function init(self)
 	self.falling = false
 	self.fall_speed = 300
+	self.stone_pos = go.get_position()
+	--pprint("Stone pos="..self.stone_pos)
 end
 
  
 
 function update(self, dt)
 	if self.falling then
-		local stone_pos = go.get_position()
-		stone_pos.y = stone_pos.y - self.fall_speed * dt
-		go.set_position(stone_pos)
+		self.stone_pos = go.get_position()
+		self.stone_pos.y = self.stone_pos.y - self.fall_speed * dt
+		--self.stone_pos.z=0
+		go.set_position(self.stone_pos)
 		
-		if stone_pos.y <=30 then go.delete(go.get_id(), true) 	end
+			
+
+		if self.stone_pos.y <=-10 then go.delete(go.get_id(), true) 	end
 	
 	end
 
@@ -20,9 +25,14 @@ function update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-	if message_id == hash("stone_start_falling") then
-			
-		self.falling = true
-		
+	if message_id == hash("stone_start_falling") then			
+		self.falling = true		
+	end
+
+	if message_id == hash("collision_response") then
+		if message.other_group == hash("orc")  then
+			msg.post(message.other_id,hash("orc_hitted_by_stone"),{stone_speed=self.fall_speed})
+			--print("[stone]msg send to:"..message.other_id)	
+		end
 	end
 end

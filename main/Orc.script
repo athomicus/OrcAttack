@@ -12,20 +12,22 @@ function init(self)
 	self.current_trigger_ladder_id_for_orc = nil
 	self.state = STATE_WALK_TO_POSITION
 	self.scale = go.get("#sprite", "scale")
-	self.speed = 110 --pixels per second speed of orc walking
-	self.climb_speed = 80
-	self.playback_rate = 1.5 -- walking animation speed multiplier
+	self.speed = 100 --pixels per second speed of orc walking
+	self.climb_speed = 30
+	self.playback_rate = 1.0 -- walking animation speed multiplier
+	self.falling_speed = 0
 --####################################### Find free place to that Orc can walk
 	local index, point = module.get_free_point() --{ pos = vmath.vector3(60, 75, 0), taken = false }, -- Point 1
 	module.set_taken(index, true)
 	 if index == nil then
-		pprint("No free point [DELETE] Orc")
+		--pprint("No free point [DELETE] Orc")
 	    go.delete() -- No free point, delete the Orc
 		return
 	end
 	go.set("#sprite_fade", "tint.w", 0.0) -- Ustaw przezroczystość drugiego sprite'a na 0 to do crossfade animacji przy climb	
 	go.set("#sprite_attack", "tint.w", 0.0) -- Ustaw przezroczystość trzeciego sprite'a na 0 to do crossfade animacji przy climb	
-	pprint("Orc initialized at point index: ".. tostring(index))
+	go.set("#sprite_death", "tint.w", 0.0)
+	--pprint("Orc initialized at point index: ".. tostring(index))
 
 
 --#######################################  Orc Animate(walk) to position
@@ -44,16 +46,18 @@ function init(self)
 		--pprint("Reached:".. tostring(index))
 
 --####################################### Orc Climb animation 		
-		switch_to_climbing(self)
-		
+		 
+			switch_to_climbing(self)
+		 
 	end)	
 	 	
 end
 
 function switch_to_climbing(self)	
-	self.scale = self.scale  
+	--self.scale = self.scale  
  	  -- Crossfade: current OUT + target IN
-    go.animate("#sprite", "tint.w", go.PLAYBACK_ONCE_FORWARD, 0.0, go.EASING_INOUTQUAD, 0.2, 0.0)
+    
+	go.animate("#sprite", "tint.w", go.PLAYBACK_ONCE_FORWARD, 0.0, go.EASING_INOUTQUAD, 0.2, 0.0)
     go.animate("#sprite_fade", "tint.w", go.PLAYBACK_ONCE_FORWARD, 1.0, go.EASING_INOUTQUAD, 0.2, 0.0)
 	sprite.play_flipbook("#sprite_fade", "walkToClimb",
 	function(self,message_id,message,sender)
@@ -63,7 +67,9 @@ function switch_to_climbing(self)
 		go.set("#sprite", "tint.w", 1.0)
 		go.set("#sprite","scale", vmath.vector3(0.55))
 		go.set("#sprite_fade", "tint.w", 0.0)
-		self.state = STATE_CLIMBING
+		if(self.state ~= STATE_DIE ) then
+			self.state = STATE_CLIMBING
+		end
 	end)
 
 end
@@ -74,7 +80,7 @@ function update(self, dt)
 		--print(self.current_trigger_ladder_id_for_orc)
 		msg.post(self.current_trigger_ladder_id_for_orc, "enable_ladder") -- wyslij wiadomosc do drabiny by sioe wlaczyla
 		local pos = go.get_position()
-		pos.y = pos.y + self.climb_speed * dt
+		pos.y = pos.y + self.climb_speed* dt
 		go.set_position(pos)
 		
 		if pos.y >60 and pos.y < 80 then
@@ -94,7 +100,13 @@ function update(self, dt)
 			--sprite.play_flipbook("#sprite", "attackWall")
 		end
 	end
-	
+	if self.state == STATE_DIE then
+		--orc umarl nic nie robi
+		
+		local pos = go.get_position()
+		pos.y = pos.y - self.falling_speed * dt
+		go.set_position(pos)
+	end
 	if self.state == STATE_ATTACK_WALL then
 		
 		
@@ -104,13 +116,32 @@ function update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
+--##### kolizja kamien
 
-		--pprint("Ladder trigger message received")
+
+		if message_id == hash("orc_hitted_by_stone") then
+				pprint("Orc hit by stone - DIE")
+				self.state = STATE_DIE
+				self.falling_speed = message.stone_speed
+				 
+				sprite.play_flipbook("#sprite_death", "death",nil,{playback_rate = self.playback_rate })
+				--go.set("#collisionobject", "enabled", false)  -- wylacz dla Orca by nie kolidowal z innymi obiektamAMI W SZCZEGOLNOSci Z kamieniem
+				msg.post("#collisionobject", "disable")
+				
+				go.set("#sprite_death", "tint.w", 1.0)
+				go.set("#sprite_fade", "tint.w", 0.0)
+				go.set("#sprite_attack", "tint.w", 0.0)
+				go.set("#sprite", "tint.w", 0.0)
+				--go.set("#sprite_death", "tint.w", 1.0)
+			 
+			end
+		
+		
 		if message_id == hash("trigger_response") then			
 		--	print("Ladder trigger collision detected")
 			--print("TRIGGER:", message.enter, "group:", message.other_group)
 
-
+			
 			--wiadomosc z triggera wysylana jest automatczycnie true-wejscie , false wyjscie	
 			-- jesli meeasge.enter == true to wejscie do triggera
 			if message.enter and message.other_group==hash("ladder") then

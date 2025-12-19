@@ -172,7 +172,10 @@ animations {
   images {
     image: "/assets/images/orc_enemy/death/dFinal Color Output0015.png"
   }
-  playback: PLAYBACK_LOOP_FORWARD
+  playback: PLAYBACK_LOOP_PINGPONG
+  fps: 26
+  flip_horizontal: 1
+  flip_vertical: 1
 }
 animations {
   id: "climbing"

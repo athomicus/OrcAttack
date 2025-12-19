@@ -7,7 +7,7 @@ local STATE_THROWING_STONE = 5          -- Player is walking to throw stone
 
 -- Initialize player state and cache stone pile positions
 function init(self)
-    print("Player initialization")
+    --print("Player initialization")
 
     -- Enable input handling for this game object
     msg.post('.', "acquire_input_focus")
@@ -43,7 +43,7 @@ function on_input(self, action_id, action)
 
         -- CASE 2: Clicked on stone pile - walk to it and pick it up
         if stone_clicked and (self.state == STATE_IDLE or self.state == STATE_WALKING) then
-            print("Clicked on stone pile")
+           -- print("Clicked on stone pile")
             self.state = STATE_WALKING_FOR_STONE
             move_to(self, action.x)
 
@@ -93,7 +93,7 @@ function move_to(self, new_x)
         function()
             -- On arrival: check if we should grab stone
             if not self.stone_id and self.state == STATE_WALKING_FOR_STONE then
-                print("Picking up stone")
+               -- print("Picking up stone")
                 grab_stone(self)
             else
                 -- Otherwise return to idle
@@ -121,7 +121,7 @@ function grab_stone(self)
     -- Set stone's local position relative to player
     go.set_position(vmath.vector3(0, 10, 0), self.stone_id)
 
-    print("Stone picked up:", self.stone_id)
+    --print("Stone picked up:", self.stone_id)
 
     -- Play throw animation
     msg.post("#sprite", "play_animation", {id = hash("throw")})
@@ -145,7 +145,7 @@ function throw_stone(self, new_x)
     local speed = 300  -- Movement speed in pixels per second
     local duration = calculate_animation_duration(new_x, speed)
 
-    print("Throwing stone:", self.stone_id)
+   -- print("Throwing stone:", self.stone_id)
 
     -- Animate player to throw position
     go.animate(".", "position.x", go.PLAYBACK_ONCE_FORWARD, new_x, go.EASING_LINEAR, duration, 0,
@@ -162,8 +162,8 @@ function throw_stone(self, new_x)
             go.set_position(new_stone_pos, self.stone_id)
 
             -- Tell stone to start falling
-            msg.post(self.stone_id, "stone_start_falling")
-            print(self.stone_id.." FALL")
+              msg.post(self.stone_id, "stone_start_falling")
+            --print(self.stone_id.." FALL")
 
             -- Clear stone reference and return to idle
             self.stone_id = nil

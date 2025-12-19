@@ -27,6 +27,7 @@ embedded_components {
   "restitution: 0.5\n"
   "group: \"orc\"\n"
   "mask: \"ladder\"\n"
+  "mask: \"stone\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_BOX\n"
@@ -91,5 +92,21 @@ embedded_components {
     x: 0.73
     y: 0.73
     z: 0.73
+  }
+}
+embedded_components {
+  id: "sprite_death"
+  type: "sprite"
+  data: "default_animation: \"death\"\n"
+  "material: \"/builtins/materials/sprite.material\"\n"
+  "textures {\n"
+  "  sampler: \"texture_sampler\"\n"
+  "  texture: \"/assets/images/orc_enemy/Orc.atlas\"\n"
+  "}\n"
+  ""
+  scale {
+    x: 0.6
+    y: 0.6
+    z: 0.6
   }
 }

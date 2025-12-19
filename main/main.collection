@@ -1,7 +1,7 @@
 name: "main"
 instances {
   id: "Orc"
-  prototype: "/game_objects/Orc.go"
+  prototype: "/assets/images/orc_enemy/Orc.go"
   position {
     x: 457.0
     y: 75.0
@@ -9,7 +9,7 @@ instances {
 }
 instances {
   id: "Orc1"
-  prototype: "/game_objects/Orc.go"
+  prototype: "/assets/images/orc_enemy/Orc.go"
   position {
     x: -73.0
     y: 75.0
@@ -17,7 +17,7 @@ instances {
 }
 instances {
   id: "Orc2"
-  prototype: "/game_objects/Orc.go"
+  prototype: "/assets/images/orc_enemy/Orc.go"
   position {
     x: 682.0
     y: 75.0
@@ -25,7 +25,7 @@ instances {
 }
 instances {
   id: "Orc3"
-  prototype: "/game_objects/Orc.go"
+  prototype: "/assets/images/orc_enemy/Orc.go"
   position {
     x: -243.0
     y: 75.0
@@ -33,7 +33,7 @@ instances {
 }
 instances {
   id: "Orc4"
-  prototype: "/game_objects/Orc.go"
+  prototype: "/assets/images/orc_enemy/Orc.go"
   position {
     x: 498.0
     y: 75.0
@@ -41,7 +41,7 @@ instances {
 }
 instances {
   id: "Orc5"
-  prototype: "/game_objects/Orc.go"
+  prototype: "/assets/images/orc_enemy/Orc.go"
   position {
     x: -32.0
     y: 75.0
@@ -49,7 +49,7 @@ instances {
 }
 instances {
   id: "Orc6"
-  prototype: "/game_objects/Orc.go"
+  prototype: "/assets/images/orc_enemy/Orc.go"
   position {
     x: 854.0
     y: 75.0
@@ -57,7 +57,7 @@ instances {
 }
 instances {
   id: "Orc7"
-  prototype: "/game_objects/Orc.go"
+  prototype: "/assets/images/orc_enemy/Orc.go"
   position {
     x: -202.0
     y: 75.0
