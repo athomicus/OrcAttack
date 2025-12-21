@@ -1,69 +1,5 @@
 name: "main"
 instances {
-  id: "Orc"
-  prototype: "/assets/images/orc_enemy/Orc.go"
-  position {
-    x: 457.0
-    y: 75.0
-  }
-}
-instances {
-  id: "Orc1"
-  prototype: "/assets/images/orc_enemy/Orc.go"
-  position {
-    x: -73.0
-    y: 75.0
-  }
-}
-instances {
-  id: "Orc2"
-  prototype: "/assets/images/orc_enemy/Orc.go"
-  position {
-    x: 682.0
-    y: 75.0
-  }
-}
-instances {
-  id: "Orc3"
-  prototype: "/assets/images/orc_enemy/Orc.go"
-  position {
-    x: -243.0
-    y: 75.0
-  }
-}
-instances {
-  id: "Orc4"
-  prototype: "/assets/images/orc_enemy/Orc.go"
-  position {
-    x: 498.0
-    y: 75.0
-  }
-}
-instances {
-  id: "Orc5"
-  prototype: "/assets/images/orc_enemy/Orc.go"
-  position {
-    x: -32.0
-    y: 75.0
-  }
-}
-instances {
-  id: "Orc6"
-  prototype: "/assets/images/orc_enemy/Orc.go"
-  position {
-    x: 854.0
-    y: 75.0
-  }
-}
-instances {
-  id: "Orc7"
-  prototype: "/assets/images/orc_enemy/Orc.go"
-  position {
-    x: -202.0
-    y: 75.0
-  }
-}
-instances {
   id: "ladder"
   prototype: "/game_objects/ladder.go"
   position {
@@ -643,4 +579,18 @@ embedded_instances {
 embedded_instances {
   id: "OrcSpawner"
   data: ""
+}
+embedded_instances {
+  id: "Orcs"
+  data: "components {\n"
+  "  id: \"OrcsFactory\"\n"
+  "  component: \"/main/OrcsFactory.script\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"orc_factory\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/game_objects/Orc.go\\\"\\n"
+  "\"\n"
+  "}\n"
+  ""
 }

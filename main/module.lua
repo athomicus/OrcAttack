@@ -16,6 +16,38 @@ function M.set_taken(index, value) -- points.set_taken(1, true)
     end
 end
 
+
+function M.set_free(ladder_id) -- points.set_taken(1, true)
+    --print("Freeing point for ladder id:"..ladder_id)
+	
+	if ladder_id == hash("/ladder16") or ladder_id == hash("/ladder12") or ladder_id == hash("/ladder5") or ladder_id == hash("/ladder")then 
+		M.orc_points[1].taken = false
+		return 		
+	end
+
+	if ladder_id == hash("/ladder11") or ladder_id == hash("/ladder17") or ladder_id == hash("/ladder6")or ladder_id == hash("/ladder1")then 
+		M.orc_points[2].taken = false
+		return 		
+	end
+
+	if ladder_id == hash("/ladder14") or ladder_id == hash("/ladder15") or ladder_id == hash("/ladder7") or ladder_id == hash("/ladder2")then 
+		M.orc_points[3].taken = false
+		return 		
+	end
+	
+	if ladder_id == hash("/ladder18") or ladder_id == hash("/ladder19") or ladder_id == hash("/ladder8") or ladder_id == hash("/ladder3") then 
+		M.orc_points[4].taken = false
+		return 		
+	end
+
+	if ladder_id == hash("/ladder10") or  ladder_id == hash("/ladder13") or ladder_id == hash("/ladder9") or ladder_id == hash("/ladder4")then 
+		M.orc_points[5].taken = false
+		return 		
+	end
+
+    
+end
+
 function M.get_free_point()
 	local free_points = {}
 	for i, point in ipairs(M.orc_points) do

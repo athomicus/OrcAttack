@@ -13,7 +13,7 @@ function init(self)
 	self.state = STATE_WALK_TO_POSITION
 	self.scale = go.get("#sprite", "scale")
 	self.speed = 100 --pixels per second speed of orc walking
-	self.climb_speed = 30
+	self.climb_speed = 80
 	self.playback_rate = 1.0 -- walking animation speed multiplier
 	self.falling_speed = 0
 --####################################### Find free place to that Orc can walk
@@ -106,6 +106,7 @@ function update(self, dt)
 		local pos = go.get_position()
 		pos.y = pos.y - self.falling_speed * dt
 		go.set_position(pos)
+		if pos.y <=-20 then go.delete(go.get_id(), true) 	end
 	end
 	if self.state == STATE_ATTACK_WALL then
 		
@@ -133,6 +134,8 @@ function on_message(self, message_id, message, sender)
 				go.set("#sprite_attack", "tint.w", 0.0)
 				go.set("#sprite", "tint.w", 0.0)
 				--go.set("#sprite_death", "tint.w", 1.0)
+				module.set_free(self.current_trigger_ladder_id_for_orc)
+			 	
 			 
 			end
 		
