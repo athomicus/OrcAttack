@@ -32,6 +32,7 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash("collision_response") then
 		if message.other_group == hash("orc")  then
 			msg.post(message.other_id,hash("orc_hitted_by_stone"),{stone_speed=self.fall_speed})
+			msg.post("#collisionobject", "disable") --collision disable for stone
 			--print("[stone]msg send to:"..message.other_id)	
 		end
 	end
