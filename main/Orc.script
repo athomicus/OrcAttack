@@ -1,4 +1,5 @@
 go.property("target_point", vmath.vector3()) --majac property mozemy przekazac punkt docelowy przy tworzeniu orka z factory
+go.property("index_ladder", 0) -- index punktu docelowego w module.lua by zwolnic go po smierci orka
 local module = require('main.module')
 -- property declared so factory.create(..., { target_point = point }) will set it on the new instance
  
@@ -12,26 +13,14 @@ local CLIMB_POS_Y = 620
 function init(self)
 	--print("[ORC] Orc target:", self.target_point.x, self.target_point.y)
 
-	self.current_trigger_ladder_id_for_orc = nil
+	self.touched_ladder_id = nil
 	self.state = STATE_WALK_TO_POSITION
 	self.scale = go.get("#sprite", "scale")
 	self.speed = 100 --pixels per second speed of orc walking
 	self.climb_speed = 80
 	self.playback_rate = 1.0 -- walking animation speed multiplier
 	self.falling_speed = 0
---####################################### Find free place to that Orc can walk
---	local index, point = module.get_free_point() --{ pos = vmath.vector3(60, 75, 0), taken = false }, -- Point 1
---	module.set_taken(index, true)
---	 if index == nil then
-		--pprint("No free point [DELETE] Orc")
---	    go.delete() -- No free point, delete the Orc
---		return
---	end
-	-- read the property value (set by factory.create) into instance state
-	-- `target_point` is the property declared above; if not set, default to a zero vector
-		--self.target_point = go.get(".", "target_point") 
 
---print(target_points)
  	go.set("#sprite_fade", "tint.w", 0.0) -- Ustaw przezroczystość drugiego sprite'a na 0 to do crossfade animacji przy climb	
 	go.set("#sprite_attack", "tint.w", 0.0) -- Ustaw przezroczystość trzeciego sprite'a na 0 to do crossfade animacji przy climb	
 	go.set("#sprite_death", "tint.w", 0.0)
@@ -86,7 +75,7 @@ function update(self, dt)
 	
 	if self.state == STATE_CLIMBING then
 		--print(self.current_trigger_ladder_id_for_orc)
-		msg.post(self.current_trigger_ladder_id_for_orc, "enable_ladder") -- wyslij wiadomosc do drabiny by sioe wlaczyla
+		msg.post(self.touched_ladder_id, "enable_ladder") -- wyslij wiadomosc do drabiny by sioe wlaczyla
 		local pos = go.get_position()
 		pos.y = pos.y + self.climb_speed* dt
 		go.set_position(pos)
@@ -101,11 +90,7 @@ function update(self, dt)
     		go.animate("#sprite", "tint.w", go.PLAYBACK_ONCE_FORWARD, 0.0, go.EASING_INOUTQUAD, 0.2, 0.0)
 			go.animate("#sprite_fade", "tint.w", go.PLAYBACK_ONCE_FORWARD, 0.0, go.EASING_INOUTQUAD, 0.2, 0.0)
     		go.animate("#sprite_attack", "tint.w", go.PLAYBACK_ONCE_FORWARD, 1.0, go.EASING_INOUTQUAD, 0.25, 0.0)
-			--go.set("#sprite", "tint.w", 0.0)
-			--go.set("#sprite_fade", "tint.w", 0.0)
-			--go.set("#sprite_attack", "tint.w", 1.0)
-		--	sprite.play_flipbook("#sprite_attack", "attack")
-			--sprite.play_flipbook("#sprite", "attackWall")
+			
 		end
 	end
 --############################################ DIE
@@ -121,8 +106,7 @@ function update(self, dt)
 		
 		
 	end
-	--local velocity = go.get("#", "velocity") -- Twój sposób na pobranie prędkości lub innej zmiennej
-	--sprite.set_hflip("#sprite",true) -- Odbicie poziome w zależności od kierunku ruchu
+	
 end
 
 function on_message(self, message_id, message, sender)
@@ -152,32 +136,18 @@ function on_message(self, message_id, message, sender)
 				go.set("#sprite_fade", "tint.w", 0.0)
 				go.set("#sprite_attack", "tint.w", 0.0)
 				go.set("#sprite", "tint.w", 0.0)
-				--go.set("#sprite_death", "tint.w", 1.0)
-				
-				--przewbudowac skrypt by ORC dostawal jeszcze gdzie ma isc nr punktu i jesli
-				-- nie doszedl to tez trzeba zwolnic punkt 
-				--obecnie jest jak dotknie drabiny to punkt zwalnia na false
-				module.set_free(self.current_trigger_ladder_id_for_orc)
+
+				module.free_ladder_for_next_orc(self.index_ladder) -- zwolnij punkt w module.lua by inny orc mogl z niego skorzystac
+			
 			 	
 			 
 			end
 		
 		
-		if message_id == hash("trigger_response") then			
-		--	print("Ladder trigger collision detected")
-			--print("TRIGGER:", message.enter, "group:", message.other_group)
-
-			
-			--wiadomosc z triggera wysylana jest automatczycnie true-wejscie , false wyjscie	
-			-- jesli meeasge.enter == true to wejscie do triggera
-			if message.enter and message.other_group==hash("ladder") then
-   				
-				--wejscie do triggera
-				local current_ladder_id = message.other_id
-				keep_last_trigger_touchedby_orc(self, current_ladder_id)
-			else
-				
-				keep_last_trigger_touchedby_orc(self, nil)	
+		if message_id == hash("trigger_response") then				
+			if message.enter and message.other_group==hash("ladder") then   				
+				self.touched_ladder_id = message.other_id 
+				-- w message.other_id jest id drabiny z ktora sie zderzyl orc np. "/ladder2"						
 			end		
 			
 		end
@@ -185,19 +155,3 @@ function on_message(self, message_id, message, sender)
 	end
  
 
-function keep_last_trigger_touchedby_orc(self, ladder_id)
-	if ladder_id  then
-		self.current_trigger_ladder_id_for_orc = ladder_id
-	--print("Ladder"..ladder_id.." touched by Orc")
-	return
-	end
-	
-
---trzeba sprawdzic czy Orc opuscil Triger drabiny jak tak to czekac na nowy triger 
---zapisac go doa jakiejs zmiennej lub tablicy i ostatni na ktorym zostal  wziasc jako current
-
-end
---1 Spawn
---2 idz do punktu
---3 crossfade animacji
---4 wspinaj sie i wyciagaj drabine

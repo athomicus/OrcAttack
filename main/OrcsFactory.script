@@ -16,8 +16,10 @@ function init(self)
 		local index, point = module.get_free_point()
 		if index ~= nil then
 			--print( "points:"..index.." create Orc")
-			module.set_taken(index, true)
-			local orc_id = factory.create("#orc_factory", spawn_pos, nil, {target_point=point}) --vmath.quat()
+			module.set_taken(index, true) -- zaznacz punkt jako zajety ale #
+			
+			--jak orc umrze to zwolnij punkt w orcu chyba 
+			local orc_id = factory.create("#orc_factory", spawn_pos, nil, {target_point=point, index_ladder=index}) -- przekazanie punktu docelowego do orka
 			orc = orc +1
 			--print("[OrcFact]"..tostring(orc_id).." - init_orc:"..orc)
 
