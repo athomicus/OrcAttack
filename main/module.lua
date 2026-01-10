@@ -70,6 +70,14 @@ M.sd = {
 	best_score = loaded.best_score or 0
 }
 
+function M.debug_points()
+	local output = ""
+	for i, point in ipairs(M.orc_points) do
+        output = output .. i .. ":" .. tostring(point.taken) .. " "
+    end
+	print(output)
+end
+
 function M.save()
 	if sys.save(savefile_path, M.sd) then
 		print('save successful')

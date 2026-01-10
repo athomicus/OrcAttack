@@ -19,7 +19,7 @@ function init(self)
 			module.set_taken(index, true)
 			local orc_id = factory.create("#orc_factory", spawn_pos, nil, {target_point=point}) --vmath.quat()
 			orc = orc +1
-			print("[OrcFact]"..tostring(orc_id).." - init_orc:"..orc)
+			--print("[OrcFact]"..tostring(orc_id).." - init_orc:"..orc)
 
 		end
 	

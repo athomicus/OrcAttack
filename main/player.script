@@ -1,3 +1,4 @@
+local module = require('main.module')
 -- Player State Machine States
 local STATE_IDLE = 1                    -- Player is standing still
 local STATE_WALKING = 2                 -- Player is walking to clicked position
@@ -27,6 +28,12 @@ end
 -- Handle player input (touch/click)
 function on_input(self, action_id, action)
     -- Only process when touch is released (tap complete)
+   
+   if action_id == hash("debug_point_table") then
+        module.debug_points()
+        return
+   end
+   
     if action_id == hash("touch") and action.released then
         local tap_position = vmath.vector3(action.x, action.y, 0)
 
