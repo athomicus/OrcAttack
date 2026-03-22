@@ -1,0 +1,73 @@
+1. Start gry (main.script + OrcsFactory)
+main.script: Łapie input, ustawia kamerę.
+
+OrcsFactory.script (init):
+
+Timer co 0.5s spawn orka z losowej strony (lewa/prawa, y=53).
+
+module.get_free_point() → losuje WOLNY punkt z 5 w module.lua:
+
+Index	Pozycja	Stan
+1	(60,75,0)	taken=false
+2	(145,75,0)	taken=false
+...	...	...
+Jeśli brak wolnych → nie spawn. Inaczej:
+
+module.set_taken(index, true) – blokuje punkt.
+
+factory.create(orcfactory, spawn_pos, targetpoint=point, indexladder=index) → tworzy orka z targetpoint (cel drabiny) i index.
+
+2. Ork powstaje (Orc.script init)
+Otrzymuje targetpoint i indexladder z factory (via property).
+
+self.touched_ladder_id = nil
+
+self.state = STATE_WALK_TO_POSITION (1) – idzie do self.targetpoint.x.
+
+Animacja chodzenia, flip sprite wg kierunku.
+​
+
+3. Ork dochodzi do drabiny (update + on_message)
+W update(): dochodzi do celu → switch_to_climbing().
+
+W on_message(): przy trigger collision z grupą "ladder":
+
+text
+self.touched_ladder_id = message.other_id  -- np. ladder1#script
+Potem w update() (STATE_CLIMBING):
+
+text
+msg.post(self.touched_ladder_id, "enable_ladder")
+→ drabina się animuje (w ladder.script: y rośnie, sprite fade-in, self.ladderenabled=true).
+
+Ork wspina się (y += climb_speed * dt), przy y=620 → STATE_ATTACK_WALL (atakuje ścianę).
+​
+
+4. Gracz działa (player.script)
+Klik touch:
+
+Jeśli trzyma kamień → rzuca.
+
+Na stercie kamieni → idzie, łapie (grabstone), trzyma (STATE_HOLDING_STONE).
+
+Inaczej → STATE_WALKING.
+
+Rzuca: msg.post(stone_id, "stone_start_falling") → kamień leci, hit orka → STATE_DIE.
+​
+
+5. Ork ginie (STATE_DIE)
+Upada (y -= falling_speed * dt).
+
+Przy y=-20 → go.delete().
+
+module.free_ladder_for_next_orc(self.indexladder) → orc_points[index].taken = false (drabina wolna dla następnego orka).
+
+Cykl losowania drabin
+Factory prosi module.get_free_point() → lista wolnych → math.random(1, #free) → index + pos.
+
+Blokuje set_taken(index, true).
+
+Ork używa tej drabiny (zapisuje ID przy kolizji).
+
+Po śmierci → zwalnia punkt.
+→ Orki nie biją się o drabiny – każdy dostaje unikalny index z puli 5

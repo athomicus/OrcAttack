@@ -45,7 +45,7 @@ function init(self)
 --####################################### Orc Climb animation 		
 		 
 			switch_to_climbing(self)
-		 
+		   
 	end)	
 	 	
 end
@@ -75,7 +75,7 @@ function update(self, dt)
 	
 	if self.state == STATE_CLIMBING then
 		--print(self.current_trigger_ladder_id_for_orc)
-		msg.post(self.touched_ladder_id, "enable_ladder") -- wyslij wiadomosc do drabiny by sioe wlaczyla
+		msg.post(self.touched_ladder_id, "enable_ladder") -- wyslij wiadomosc do drabiny by sie wlaczyla
 		local pos = go.get_position()
 		pos.y = pos.y + self.climb_speed* dt
 		go.set_position(pos)
@@ -103,14 +103,20 @@ function update(self, dt)
 		if pos.y <=-20 then go.delete(go.get_id(), true) 	end
 	end
 	if self.state == STATE_ATTACK_WALL then
-		
-		
+		--co sekunde atakuje sciane i zadaje damage graczowi
+		self.attack_timer = (self.attack_timer or 0) + dt
+		if self.attack_timer >= 1.0 then  -- co 1 sekundę
+    		self.attack_timer = 0
+    		msg.post("/player", "take_damage", { amount = 1 })
+		end
 	end
 	
 end
 
 function on_message(self, message_id, message, sender)
 	-- fallback: receive target via message if set by factory caller using msg.post
+	--Ten kod to "zapasowy/alternatywny mechanizm ustawiania celu"
+	-- dla orka. Służy jako backup dla sytuacji, gdy factory properties nie zadziałają
 	if message_id == hash("set_target") then
 		if message.target_point then
 			self.target_point = message.target_point
@@ -143,11 +149,14 @@ function on_message(self, message_id, message, sender)
 			 
 			end
 		
-		
+		--kolizja z triggerem drabiny
 		if message_id == hash("trigger_response") then				
+			--message.enter = true (wejście w trigger).
+			--message.other_group = hash("ladder") - wszedl w grupe "ladder"
+			--message.other_id = pełny URL drabiny, np. hash("/level/ladder1#trigger") lub hash("/level/ladder1#script").
+			
 			if message.enter and message.other_group==hash("ladder") then   				
-				self.touched_ladder_id = message.other_id 
-				-- w message.other_id jest id drabiny z ktora sie zderzyl orc np. "/ladder2"						
+				self.touched_ladder_id = message.other_id  -- w message.other_id jest id drabiny z ktora sie zderzyl orc np. "/ladder2"						
 			end		
 			
 		end

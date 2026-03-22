@@ -1,0 +1,70 @@
+script: "/main/hud.gui_script"
+fonts {
+  name: "Antiq"
+  font: "/assets/font/Antiq.font"
+}
+nodes {
+  position {
+    x: 77.0
+    y: 759.0
+  }
+  size {
+    x: 350.0
+    y: 5.0
+  }
+  color {
+    x: 0.102
+    y: 0.102
+    z: 0.102
+  }
+  type: TYPE_BOX
+  id: "background"
+  pivot: PIVOT_W
+  inherit_alpha: true
+  alpha: 0.5
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 77.0
+    y: 759.0
+  }
+  size {
+    x: 350.0
+    y: 5.0
+  }
+  color {
+    x: 0.8
+    y: 0.2
+    z: 0.2
+  }
+  type: TYPE_BOX
+  id: "health"
+  pivot: PIVOT_W
+  inherit_alpha: true
+  alpha: 0.8
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 235.0
+    y: 775.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "Score: 0"
+  font: "Antiq"
+  id: "text"
+  outline {
+    x: 0.231
+    y: 0.137
+    z: 0.082
+  }
+  inherit_alpha: true
+  outline_alpha: 4.0
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

@@ -1,4 +1,6 @@
 local module = require('main.module')
+local HP_MAX = 100
+--player_live=100
 -- Player State Machine States
 local STATE_IDLE = 1                    -- Player is standing still
 local STATE_WALKING = 2                 -- Player is walking to clicked position
@@ -12,7 +14,7 @@ function init(self)
 
     -- Enable input handling for this game object
     msg.post('.', "acquire_input_focus")
-
+    self.hp = HP_MAX
     -- Set initial state
     self.state = STATE_IDLE
 
@@ -79,7 +81,15 @@ function on_message(self, message_id, message, sender)
     elseif message_id == hash("set_animation_right") then
         msg.post("#sprite", "play_animation", {id = hash("Run")})
         sprite.set_hflip("#sprite", false)  -- No flip
+   
+    elseif message_id == hash("take_damage") then
+        self.hp = self.hp - message.amount
+        --print(self.hp)
+        if self.hp < 0 then self.hp = 0 end
+        ---- Powiadom HUD o zmianie
+        msg.post("/gui#game_gui", "update_hp_bar", { hp=self.hp,HP_MAX=HP_MAX })
     end
+
 end
 
 -- Move player to target X position

@@ -4,9 +4,16 @@ function init(self)
 end
 
 function on_message(self, message_id, message, sender)
-    if message_id == hash("update_ui") then
-        gui.set_text(gui.get_node("lives_text"), "Lives: " .. message.lives)
-        gui.set_text(gui.get_node("score_text"), "Score: " .. message.score)
+    if message_id == hash("update_hp_bar") then
+        
+        local bar = gui.get_node("health")
+        local hp_percentage = message.hp / message.HP_MAX
+        gui.set_scale(bar, vmath.vector3(hp_percentage, 1, 1))
+        print(hp_percentage)
+        --gui.set_text(gui.get_node("health_text"), "HP: " .. message.hp
+        
+        --gui.set_text(gui.get_node("lives_text"), "Lives: " .. message.lives)
+        --gui.set_text(gui.get_node("score_text"), "Score: " .. message.score)
     elseif message_id == hash("game_over") then
         self.game_over = true
         gui.set_alpha(gui.get_node("game_over_text"), 1.0)
