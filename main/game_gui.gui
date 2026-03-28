@@ -1,12 +1,15 @@
 script: "/main/hud.gui_script"
 fonts {
-  name: "Antiq"
-  font: "/assets/font/Antiq.font"
+  name: "Starfish"
+  font: "/assets/font/Starfish.font"
 }
 nodes {
   position {
     x: 77.0
     y: 759.0
+  }
+  scale {
+    y: 2.022681
   }
   size {
     x: 350.0
@@ -29,6 +32,9 @@ nodes {
     x: 77.0
     y: 759.0
   }
+  scale {
+    y: 2.022681
+  }
   size {
     x: 350.0
     y: 5.0
@@ -47,24 +53,86 @@ nodes {
 }
 nodes {
   position {
-    x: 235.0
-    y: 775.0
+    x: 428.0
+    y: 778.0
+  }
+  scale {
+    x: 0.5
+    y: 0.5
+    z: 0.5
+  }
+  size {
+    x: 700.0
+    y: 50.0
+  }
+  type: TYPE_TEXT
+  text: "0\n"
+  ""
+  font: "Starfish"
+  id: "text"
+  pivot: PIVOT_E
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 281.0
+    y: 338.0
+  }
+  scale {
+    x: 4.292395
+    y: 14.222364
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_BOX
+  id: "game_over_bg"
+  inherit_alpha: true
+  alpha: 0.7
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 252.0
+    y: 396.0
+  }
+  size {
+    x: 400.0
+    y: 100.0
+  }
+  color {
+    x: 0.8
+    y: 0.4
+    z: 0.2
+  }
+  type: TYPE_BOX
+  id: "button"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  enabled: false
+  visible: false
+}
+nodes {
+  position {
+    x: 8.0
   }
   size {
     x: 200.0
     y: 100.0
   }
   type: TYPE_TEXT
-  text: "Score: 0"
-  font: "Antiq"
-  id: "text"
-  outline {
-    x: 0.231
-    y: 0.137
-    z: 0.082
-  }
+  text: "Play again\n"
+  ""
+  font: "Starfish"
+  id: "text1"
+  parent: "button"
   inherit_alpha: true
-  outline_alpha: 4.0
 }
 material: "/builtins/materials/gui.material"
 adjust_reference: ADJUST_REFERENCE_PARENT

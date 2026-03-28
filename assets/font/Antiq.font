@@ -1,4 +1,6 @@
 font: "/assets/font/antiquity-print.ttf"
 material: "/builtins/fonts/font.material"
-size: 15
+size: 30
+outline_alpha: 0.8
+outline_width: 1.0
 characters: " !\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"

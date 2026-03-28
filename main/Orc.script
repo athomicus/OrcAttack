@@ -144,7 +144,8 @@ function on_message(self, message_id, message, sender)
 				go.set("#sprite", "tint.w", 0.0)
 
 				module.free_ladder_for_next_orc(self.index_ladder) -- zwolnij punkt w module.lua by inny orc mogl z niego skorzystac
-			
+
+				module.add_score(1)
 			 	
 			 
 			end

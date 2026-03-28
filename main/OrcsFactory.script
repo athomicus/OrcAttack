@@ -1,13 +1,14 @@
 local module = require('main.module')
 -- kamiein wylaczac po spadaniu i hit w orkva?
 function init(self)
+	self.spawning = true
 	orc = 0
 	self.spawn_interval = 0.5  -- co 1sekundy
 	self.spawn_positions = { vmath.vector3(555, 53, 0),vmath.vector3(-100, 53, 0)}
 	
 	timer.delay(self.spawn_interval, true, 
-	
 	function()
+		if not self.spawning then return end --blokada spawnu jesli not true
 		local index_position = math.random(1, #self.spawn_positions)
 		local spawn_pos = self.spawn_positions[index_position]
 		
@@ -26,9 +27,13 @@ function init(self)
 		end
 	
 	end)
-
-
 	
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("stop_spawning") then
+		self.spawning = false
+	end
 end
  
 	

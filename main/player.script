@@ -10,6 +10,7 @@ local STATE_THROWING_STONE = 5          -- Player is walking to throw stone
 
 -- Initialize player state and cache stone pile positions
 function init(self)
+    self.player_dead = false
     --print("Player initialization")
 
     -- Enable input handling for this game object
@@ -83,11 +84,20 @@ function on_message(self, message_id, message, sender)
         sprite.set_hflip("#sprite", false)  -- No flip
    
     elseif message_id == hash("take_damage") then
+        if self.player_dead then return end -- ← blokada, ignoruj damage po śmierci
         self.hp = self.hp - message.amount
         --print(self.hp)
         if self.hp < 0 then self.hp = 0 end
         ---- Powiadom HUD o zmianie
         msg.post("/gui#game_gui", "update_hp_bar", { hp=self.hp,HP_MAX=HP_MAX })
+       
+        if self.hp <= 0 then
+            --print("Player died")
+            self.player_dead = true
+            msg.post(".", "release_input_focus")
+            msg.post("/gui#game_gui", "game_over")
+        end
+
     end
 
 end

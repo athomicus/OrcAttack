@@ -1,5 +1,5 @@
 local M = {}
-
+ 
 M.orc_points = {
 	{ pos = vmath.vector3(60, 75, 0), taken = false }, -- Point 1
 	{ pos = vmath.vector3(145, 75, 0), taken = false },     -- Point 2
@@ -45,6 +45,17 @@ local loaded = sys.load(savefile_path)
 M.sd = {
 	best_score = loaded.best_score or 0
 }
+
+M.score = 0
+
+function M.add_score(points)
+    M.score = M.score + points
+	msg.post("/gui#game_gui", "update_points", { score = M.score })
+	--[[M.sd.best_score = score
+		M.save()
+	end]]
+
+end
 
 function M.debug_points()
 	local output = ""
