@@ -67,3 +67,8 @@ stateDiagram-v2
 - Bounding box collision detection
 - Stone size: `100 x 300` pixels
 - Checks `stones_left` and `stones_right`
+
+Font outline - tip 
+
+<img width="946" height="645" alt="obraz" src="https://github.com/user-attachments/assets/372e7e8f-caa4-4686-81d6-d0f5b5b82010" />
+
