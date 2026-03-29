@@ -2,6 +2,10 @@ function init(self)
     msg.post(".", "acquire_input_focus")
     self.game_over = false
     gui.set_enabled(gui.get_node("game_over_bg"), false)
+   
+    local play_again_btn = gui.get_node("play_again")
+    gui.set_enabled(play_again_btn, false)
+   
 end
 
 function on_message(self, message_id, message, sender)
@@ -24,6 +28,7 @@ function on_message(self, message_id, message, sender)
         print("[hud.gui_script]msg comes from player: Game Over!")
         gui.set_enabled(gui.get_node("game_over_bg"), true)
         msg.post("/Orcs#OrcsFactory", "stop_spawning")  -- zatrzymaj fabrykę orków
+        gui.set_enabled(gui.get_node("play_again"), true)
     end
 
     if message_id == hash("update_points") then
@@ -35,8 +40,18 @@ function on_message(self, message_id, message, sender)
 end
 
 function on_input(self, action_id, action)
+    
+    --restart game - later reload proxy scollection should be created
+    if self.game_over and gui.pick_node(gui.get_node("play_again"), action.x, action.y) then   
+        if action_id == hash("touch") and action.pressed then
+            --msg.post("/game#game", "restart")
+            sys.reboot() --reset everything, including score and lives, by rebooting the game
+            return true
+        end
+    end
+
     if self.game_over and action_id == hash("touch") and action.pressed then
-        msg.post("/game#game", "restart")
+        --msg.post("/game#game", "restart")
         return true
     end
     return false

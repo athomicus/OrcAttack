@@ -1,0 +1,4 @@
+images {
+  image: "/assets/images/UI/button_circle_wide.png"
+}
+extrude_borders: 2

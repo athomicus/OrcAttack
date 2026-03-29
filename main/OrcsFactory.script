@@ -20,7 +20,7 @@ function init(self)
 			module.set_taken(index, true) -- zaznacz punkt jako zajety ale #
 			
 			--jak orc umrze to zwolnij punkt w orcu chyba 
-			local orc_id = factory.create("#orc_factory", spawn_pos, nil, {target_point=point, index_ladder=index}) -- przekazanie punktu docelowego do orka
+			local orc_id = factory.create("#orc_factory", spawn_pos, nil, {target_point=point, index_ladder=index, damage_given=12}) -- przekazanie punktu docelowego do orka
 			orc = orc +1
 			--print("[OrcFact]"..tostring(orc_id).." - init_orc:"..orc)
 

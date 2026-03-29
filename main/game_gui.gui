@@ -3,6 +3,10 @@ fonts {
   name: "Starfish"
   font: "/assets/font/Starfish.font"
 }
+textures {
+  name: "buttons"
+  texture: "/assets/images/UI/buttons.atlas"
+}
 nodes {
   position {
     x: 77.0
@@ -99,28 +103,26 @@ nodes {
 }
 nodes {
   position {
-    x: 252.0
-    y: 396.0
-  }
-  size {
-    x: 400.0
-    y: 100.0
+    x: 249.0
+    y: 137.0
   }
   color {
-    x: 0.8
-    y: 0.4
-    z: 0.2
+    x: 0.984
+    y: 0.558
+    z: 0.004
   }
   type: TYPE_BOX
-  id: "button"
+  texture: "buttons/button_circle_wide"
+  id: "play_again"
   inherit_alpha: true
+  alpha: 0.9
   size_mode: SIZE_MODE_AUTO
-  enabled: false
-  visible: false
 }
 nodes {
-  position {
-    x: 8.0
+  scale {
+    x: 0.8
+    y: 0.8
+    z: 0.8
   }
   size {
     x: 200.0
@@ -131,7 +133,7 @@ nodes {
   ""
   font: "Starfish"
   id: "text1"
-  parent: "button"
+  parent: "play_again"
   inherit_alpha: true
 }
 material: "/builtins/materials/gui.material"
